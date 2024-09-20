@@ -1,6 +1,6 @@
 let i = 0;
 let text1 = "Hi, love!";
-let text2 = "I made you a little something"
+let text2 = "I made you a little something."
 let speed = 100;
 
 function typeWriter(text, para){
