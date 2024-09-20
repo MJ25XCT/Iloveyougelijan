@@ -19,22 +19,17 @@
         #movingGif2 { top: 78%; animation-duration: 13s; }
         #movingGif3 { top: 86%; animation-duration: 12s; }
         #movingGif4 { top: 81%; animation-duration: 11s; }
-    </style>
-    <style>
-        body { margin: 0; overflow: hidden; }
-        .falling-images { position: relative; width: 100vw; height: 100vh; }
-        .falling-image { display: none; }
-        .falling-image-left, .falling-image-right {
-            position: absolute; top: -1000px; opacity: 0;
-            animation: fadeInFall 10s ease-in-out forwards;
-        }
-        .falling-image-left { left: 100px; }
-        .falling-image-right { right: 100px; }
-        @keyframes fadeInFall {
-            0% { opacity: 0; transform: translateY(-100px); }
-            20%, 80% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(100vh); }
-        }
+
+        @media screen and (max-width: 768px) {
+        #movingGif img, #movingGif2 img, #movingGif4 img { width: 200px; height: 110px; }
+        #movingGif3 img { width: 130px; height: 75px; }
+    }
+
+    /* Further adjust for even smaller screens */
+    @media screen and (max-width: 480px) {
+        #movingGif img, #movingGif2 img, #movingGif4 img { width: 150px; height: 80px; }
+        #movingGif3 img { width: 100px; height: 60px; }
+    }
     </style>
     <style>
         #timeline, #circle, #yearLine, #yearText {
