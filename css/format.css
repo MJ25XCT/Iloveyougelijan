@@ -476,33 +476,590 @@
         transform: translate(0, 0); /* Initial transform */
         cursor: move;
     }
-
-    .moving-gif::after {
-        content: '↔️';
-        position: absolute;
-        right: -20px;
-        top: -20px;
-        font-size: 12px;
-        opacity: 0.7;
-    }
-
-    .gif-resize-handle {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background-color: white;
-        border: 1px solid black;
-        right: -5px;
-        bottom: -5px;
-        cursor: se-resize;
-    }
+}
 
     /* Add these new styles for disk position control */
     #diskPositionControl {
         position: absolute;
         top: -15px;
         left: -15px;
-        width: calc(100% + 30px);
+        width: calc(100% + 30px);/* Remove this line if it exists */
+        /* @import url('music-player.css'); */
+        
+        /* Add all your existing styles here */
+        
+        /* Add these music player styles directly in format.css */
+        @import url('music-player.css');
+        
+        #musicPlayer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px; /* Increased width to accommodate the disk */
+            height: 120px; /* Increased height to accommodate new elements */
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1000;
+            display: none;
+        }
+        
+        #diskContainer {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        #disk {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: 
+                /* Center hole */
+                radial-gradient(circle at center, #000 0, #000 5%, transparent 5%),
+                /* Silver label */
+                radial-gradient(circle at center, #e0e0e0 0, #e0e0e0 35%, transparent 35%),
+                /* Light reflection on label */
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 0, rgba(255,255,255,0.8) 3%, transparent 3%),
+                /* Vinyl grooves */
+                repeating-radial-gradient(circle at center, #0a0a0a 0, #0a0a0a 1px, #000 1px, #000 2px),
+                /* Base color */
+                #000;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            animation: spin 5s linear infinite;
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+        
+        #disk::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            background: 
+                radial-gradient(
+                    circle at 50% 50%,
+                    rgba(255,255,255,0.1) 0%,
+                    rgba(255,255,255,0.1) 30%,
+                    rgba(255,255,255,0) 50%
+                );
+        }
+        
+        #disk::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
+            border-radius: 50%;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        #songInfo {
+            width: 100%; /* Ensure songInfo takes full width */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        #songTitle {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 2px; /* Reduced margin to fit artist name */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        #artistName {
+            color: white;
+            font-size: 13px; /* 50% smaller than the title */
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        #controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            margin: 0 10px;
+            transition: transform 0.1s ease;
+        }
+        
+        #controls button:hover {
+            transform: scale(1.1);
+        }
+        
+        #controls button:active {
+            transform: scale(0.95);
+        }
+        
+        #playBtn {
+            font-size: 28px; /* Make the play/pause button slightly larger */
+        }
+        
+        /* ... rest of the existing styles ... */
+        /* Remove the #musicPlayer styles from here, as they're now in music-player.css */
+        
+        /* ... rest of the existing styles ... */
+        
+        #songInfo {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #songTitle {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        #controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        
+        #controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            margin: 0 10px;
+            transition: transform 0.1s ease;
+        }
+        
+        #controls button:hover {
+            transform: scale(1.1);
+        }
+        
+        #controls button:active {
+            transform: scale(0.95);
+        }
+        
+        #playBtn {
+            font-size: 28px; /* Make the play/pause button slightly larger */
+        }
+        
+        #typeDiv {
+            position: absolute;
+            top: 45%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        
+        #txt1 {
+            font-size: 16px;
+            text-align: center;
+            color: white;
+        }
+        #txt2 {
+            font-size: 16px;
+            text-align: center;
+            color: white;
+        }
+        
+        #content{
+            position: absolute;
+            top: 1%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 100%;
+            height: 20%;
+        }
+        
+        #together{
+            font-size: 25px;
+            text-align: center;
+            color: white;
+        }
+        
+        #timer{
+            text-align: center;
+            color: white;
+        }
+        
+        #d{
+            font-size: 19px;
+        }
+        
+        #heartTxt {
+            position: absolute;
+            display: table;
+            vertical-align: middle;
+            top: 80%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 10%;
+            height: 8%;
+            z-index: 1000; /* Add this line to ensure it's above the GIFs */
+        }
+        
+        #clickMe{
+            display: inline-block;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        
+        #heart{
+            width: 100%;
+            height: 100%;
+        }
+        
+        #button{
+            background-image: url("https://raw.githubusercontent.com/MJ25XCT/Iloveyougelijan/main/Img/love.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-color: transparent; /* Add this line */
+            border: none;
+            outline: none;
+            background-position: center;
+            transition: 0.1s;
+            width: 100%;
+            height: 100%;
+            cursor: pointer; /* Add this line to show it's clickable */
+            min-width: 44px;
+            min-height: 44px;
+            z-index: 1000; /* Add this line to ensure it's above the GIFs */
+        }
+        
+        #button:active {
+            width: 92%;
+            height: 92%;
+        }
+        
+        #Txt{
+            display: inline-block;
+            font-size: 17px;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        
+        #tmp{
+            display: inline-block;
+            font-size: 17px;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        
+        #progressContainer {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            margin: 0 10px; /* Add margin to separate from timestamps */
+        }
+        
+        @media screen and (max-width: 768px) {
+            #progressContainer {
+                height: 6px; /* Slightly larger for easier touch on mobile */
+                margin: 0 5px; /* Reduced margin for smaller screens */
+                width: 80%; /* Shortened progress bar for medium screens */
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            #progressContainer {
+                height: 5px; /* Even larger for very small screens */
+                margin: 0 3px; /* Further reduced margin */
+                width: 70%; /* Further shortened progress bar for small screens */
+            }
+        }
+        
+        /* Added editor for custom progress bar length */
+        @media screen and (max-width: 1024px) {
+            #progressContainer {
+                width: var(--progress-bar-width, 50%); /* Default to 100%, can be customized */
+            }
+        }
+        
+        
+        #progressBar {
+            height: 100%;
+            background-color: white;
+            width: 0%;
+        }
+        
+        #timeInfo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        #currentTime {
+            margin-right: 87px; /* Space between current time and progress bar */
+        }
+        
+        #duration {
+            margin-left: 87px; /* Space between progress bar and duration */
+        }
+        
+        @media screen and (max-width: 768px) {
+            #timeInfo {
+                font-size: 10px;
+                margin-bottom: 3px;
+            }
+        
+            #currentTime {
+                margin-right: 40px;
+            }
+        
+            #duration {
+                margin-left: 40px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            #timeInfo {
+                font-size: 10px;
+                margin-bottom: 2px;
+            }
+        
+            #currentTime {
+                margin-right: 80px;
+            }
+        
+            #duration {
+                margin-left: 20px;
+            }
+        }
+        
+        #timeline {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 2px;
+            background-color: white;
+            box-shadow: 0 0 10px white;
+            opacity: 0;
+            transform: translateY(-50%);
+            width: 0; /* Start with 0 width */
+            transform: translateZ(0);
+        }
+        
+        #circle, #yearLine, #yearText {
+            opacity: 0;
+            transform: translateZ(0);
+        }
+        
+        #timeline.show {
+            animation: fadeIn 0.5s ease-out forwards, fillTimeline 1s ease-out forwards;
+        }
+        
+        #circle.show, #yearLine.show, #yearText.show {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fillTimeline {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes drawLine {
+            to {
+                width: 100%;
+            }
+        }
+        
+        @keyframes drawYearLine {
+            to {
+                height: 30px;
+            }
+        }
+        
+        /* Add these media queries at the end of your CSS file */
+        
+        @media screen and (max-width: 768px) {
+            #musicPlayer {
+                width: 80%;
+                right: 10%;
+                left: 10%;
+                top: 10px;
+                height: 60px !important; /* Use !important to override */
+                padding: 5px;
+            }
+        
+            #songTitle, #artistName {
+                font-size: 12px;
+            }
+        
+            #controls button {
+                font-size: 20px;
+            }
+        
+            #typeDiv {
+                width: 90%;
+            }
+        
+            #txt1, #txt2 {
+                font-size: 14px;
+            }
+        
+            #content {
+                font-size: 14px;
+            }
+        
+            #letter p {
+                font-size: 14px;
+            }
+        
+            #diskContainer {
+                width: 50px; /* Adjustable disk size */
+                height: 50px;
+                position: absolute;
+                top: 10px; /* Initial top position */
+                left: 10px; /* Initial left position */
+                transform: translate(0, 0); /* Initial transform */
+                cursor: move;
+            }
+        
+            #diskPositionControl {
+                position: absolute;
+                top: -15px;
+                left: -15px;
+                width: calc(100% + 30px);
+                height: calc(100% + 30px);
+                border: 2px dashed rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                pointer-events: none;
+                display: none;
+            }
+        
+            #diskContainer:hover #diskPositionControl {
+                display: block;
+            }
+        
+            .disk-handle {
+                width: 10px;
+                height: 10px;
+                background-color: white;
+                border-radius: 50%;
+                position: absolute;
+                cursor: move;
+            }
+        
+            #diskHandleTop { top: -5px; left: calc(50% - 5px); }
+            #diskHandleRight { top: calc(50% - 5px); right: -5px; }
+            #diskHandleBottom { bottom: -5px; left: calc(50% - 5px); }
+            #diskHandleLeft { top: calc(50% - 5px); left: -5px; }
+        
+            /* Add this to make the disk draggable */
+            #diskContainer {
+                cursor: move;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            #musicPlayer {
+                top: 35%; /* Center vertically */
+                left: 50%; /* Center horizontally */
+                transform: translate(-50%, -100%); /* Center both horizontally and vertically */
+                width: 70%; /* Adjust width as needed */
+                height: 15% !important; /* Use !important to override */
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            #diskContainer {
+                margin-bottom: 10px;
+            }
+        
+            #controls {
+                margin-top: 0px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            #timeline {
+                height: 1px;
+            }
+        
+            #circle {
+                width: 8px;
+                height: 8px;
+            }
+        
+            #yearLine {
+                height: 20px;
+            }
+        
+            #yearText {
+                font-size: 16px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-70%);
+            }
+
+            #yearText:hover {
+                cursor: pointer;
+            }
+
+            #yearPositionControl {
+                position: absolute;
+                top: -50px;
+                left: -10px;
+                width: calc(100% + 20px);
+                height: calc(100% + 20px);
+                border: 2px dashed rgba(255, 255, 255, 0.5);
+                border-radius: 5px;
+                pointer-events: none;
+                display: none;
+            }
+        }
+        
+        
+        
+        
+        
         height: calc(100% + 30px);
         border: 2px dashed rgba(255, 255, 255, 0.5);
         border-radius: 50%;
@@ -532,9 +1089,7 @@
     #diskContainer {
         cursor: move;
     }
-
-    // ... rest of the media query styles ...
-}
+    
 
 @media screen and (max-width: 480px) {
     #musicPlayer {
@@ -553,6 +1108,14 @@
 
     #controls {
         margin-top: 0px;
+    }
+
+    #yearText {
+        position: absolute;
+        top: 43%; /* Adjust as needed */
+        left: 5%;
+        font-size: 16px;
+        cursor: move;
     }
 }
 
@@ -574,7 +1137,3 @@
         font-size: 16px;
     }
 }
-
-
-
-
