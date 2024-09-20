@@ -248,7 +248,7 @@
 	font-size: 19px;
 }
 
-#heartTxt{
+#heartTxt {
 	position: absolute;
 	display: table;
 	vertical-align: middle;
@@ -258,6 +258,7 @@
 	margin: auto;
 	width: 10%;
 	height: 8%;
+	z-index: 1000; /* Add this line to ensure it's above the GIFs */
 }
 
 #clickMe{
@@ -287,6 +288,7 @@
 	cursor: pointer; /* Add this line to show it's clickable */
 	min-width: 44px;
 	min-height: 44px;
+	z-index: 1000; /* Add this line to ensure it's above the GIFs */
 }
 
 #button:active {
