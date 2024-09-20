@@ -1,14 +1,17 @@
+let isDesktop = false;
+
 function Star(x, y, radius, _color) {
-    this.x = x
-    this.y = y
-    this.radius = radius
-    this.color = '#ffffff'
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = '#ffffff';
     this.velocity = {
         x: (Math.random() - 0.5) * 8,
         y: 3
-    }
-    this.friction = 0.8
-    this.gravity = 1
+    };
+    this.friction = 0.8;
+    this.gravity = 1;
+    this.isActive = isDesktop;
 }
 
 Star.prototype.draw = function() {
@@ -24,7 +27,9 @@ Star.prototype.draw = function() {
 }
 
 Star.prototype.update = function() {
-    this.draw()
+    if (!this.isActive) return;
+    
+    this.draw();
 
     //When ball hits bottom of screen
     if(this.y + this.radius + this.velocity.y > canvas.height - groundHeight){
@@ -65,7 +70,7 @@ function MiniStar(x, y, radius, color){
     this.gravity = 0.1
     this.ttl = 100
     this.opacity = 1
-    
+    this.isActive = isDesktop;
 }
 
 MiniStar.prototype.draw = function() {
@@ -81,6 +86,8 @@ MiniStar.prototype.draw = function() {
 }
 
 MiniStar.prototype.update = function() {
+    if (!this.isActive) return;
+    
     this.draw()
 
     if(this.y + this.radius + this.velocity.y > canvas.height - groundHeight){
@@ -97,9 +104,27 @@ MiniStar.prototype.update = function() {
 }
 
 function init() {
-    // ... existing code ...
-    const starCount = window.innerWidth < 768 ? 100 : 200;
-    for(let i = 0; i < starCount; i++){
-        // ... create stars ...
+    isDesktop = window.innerWidth >= 1024;
+    
+    // Clear existing stars
+    stars = [];
+    miniStars = [];
+    
+    if (isDesktop) {
+        const starCount = 200;
+        for(let i = 0; i < starCount; i++){
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const radius = Math.random() * 3;
+            stars.push(new Star(x, y, radius));
+        }
     }
 }
+
+// Update resize event listener
+window.addEventListener('resize', init);
+
+// Call init when the script loads
+init();
+
+// ... rest of the existing code ...
