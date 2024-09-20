@@ -306,6 +306,30 @@
     margin: 0 10px; /* Add margin to separate from timestamps */
 }
 
+@media screen and (max-width: 768px) {
+    #progressContainer {
+        height: 6px; /* Slightly larger for easier touch on mobile */
+        margin: 0 5px; /* Reduced margin for smaller screens */
+        width: 80%; /* Shortened progress bar for medium screens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #progressContainer {
+        height: 5px; /* Even larger for very small screens */
+        margin: 0 3px; /* Further reduced margin */
+        width: 70%; /* Further shortened progress bar for small screens */
+    }
+}
+
+/* Added editor for custom progress bar length */
+@media screen and (max-width: 1024px) {
+    #progressContainer {
+        width: var(--progress-bar-width, 50%); /* Default to 100%, can be customized */
+    }
+}
+
+
 #progressBar {
     height: 100%;
     background-color: white;
@@ -327,6 +351,36 @@
 
 #duration {
     margin-left: 87px; /* Space between progress bar and duration */
+}
+
+@media screen and (max-width: 768px) {
+    #timeInfo {
+        font-size: 10px;
+        margin-bottom: 3px;
+    }
+
+    #currentTime {
+        margin-right: 40px;
+    }
+
+    #duration {
+        margin-left: 40px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #timeInfo {
+        font-size: 10px;
+        margin-bottom: 2px;
+    }
+
+    #currentTime {
+        margin-right: 80px;
+    }
+
+    #duration {
+        margin-left: 20px;
+    }
 }
 
 #timeline {
@@ -385,12 +439,12 @@
         right: 10%;
         left: 10%;
         top: 10px;
-        height: 100px;
+        height: 60px !important; /* Use !important to override */
         padding: 5px;
     }
 
     #songTitle, #artistName {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     #controls button {
@@ -412,12 +466,83 @@
     #letter p {
         font-size: 14px;
     }
+
+    #diskContainer {
+        width: 50px; /* Adjustable disk size */
+        height: 50px;
+        position: absolute;
+        top: 10px; /* Initial top position */
+        left: 10px; /* Initial left position */
+        transform: translate(0, 0); /* Initial transform */
+        cursor: move;
+    }
+
+    .moving-gif::after {
+        content: '↔️';
+        position: absolute;
+        right: -20px;
+        top: -20px;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
+    .gif-resize-handle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border: 1px solid black;
+        right: -5px;
+        bottom: -5px;
+        cursor: se-resize;
+    }
+
+    /* Add these new styles for disk position control */
+    #diskPositionControl {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        width: calc(100% + 30px);
+        height: calc(100% + 30px);
+        border: 2px dashed rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        display: none;
+    }
+
+    #diskContainer:hover #diskPositionControl {
+        display: block;
+    }
+
+    .disk-handle {
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        cursor: move;
+    }
+
+    #diskHandleTop { top: -5px; left: calc(50% - 5px); }
+    #diskHandleRight { top: calc(50% - 5px); right: -5px; }
+    #diskHandleBottom { bottom: -5px; left: calc(50% - 5px); }
+    #diskHandleLeft { top: calc(50% - 5px); left: -5px; }
+
+    /* Add this to make the disk draggable */
+    #diskContainer {
+        cursor: move;
+    }
+
+    // ... rest of the media query styles ...
 }
 
 @media screen and (max-width: 480px) {
     #musicPlayer {
-        top: 5px; /* You can adjust this for even smaller screens */
-        height: auto;
+        top: 35%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -100%); /* Center both horizontally and vertically */
+        width: 70%; /* Adjust width as needed */
+        height: 15% !important; /* Use !important to override */
         flex-direction: column;
         align-items: center;
     }
@@ -427,7 +552,7 @@
     }
 
     #controls {
-        margin-top: 10px;
+        margin-top: 0px;
     }
 }
 
