@@ -36,9 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     playlistContainer.appendChild(audioElement);
   });
 
-  // Trigger the music player initialization after the playlist is loaded
-  if (typeof initializeMusicPlayer === 'function') {
-    console.log('Initializing music player with playlist:', playlist);
-    initializeMusicPlayer();
-  }
+  // Remove the initializeMusicPlayer call from here
+  console.log('Playlist loaded:', playlist);
 });
